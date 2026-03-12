@@ -1,6 +1,6 @@
 # Unraid Docker Templates
 
-A collection of Docker templates designed for **Unraid Community Applications**.  
+A collection of Docker templates designed for **Unraid**.  
 These templates make it easier to deploy advanced self-hosted tools with minimal configuration.
 
 This repository focuses on providing **well-structured templates and documentation** so users can quickly deploy services through the Unraid GUI.
