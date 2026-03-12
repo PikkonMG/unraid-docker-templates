@@ -12,10 +12,12 @@
   <Network>bridge</Network>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://developer.nvidia.com/nim</Support>
+  <Support>https://forums.unraid.net/topic/197721-support-nvidia-nim-single-ai-inference-server</Support>
   <Project>https://build.nvidia.com/</Project>
   <Overview>NVIDIA NIM AI inference server for running LLMs locally on NVIDIA GPUs with CUDA acceleration and an OpenAI-compatible API.
-
+    
+Be sure to check out for NIM related support https://developer.nvidia.com/nim
+    
 DEFAULT MODEL: meta/llama-3.2-3b-instruct -- recommended for GPUs with 12 GB VRAM or less (RTX 3060, 3070, etc).
 
 TO CHANGE MODELS: Update BOTH the Repository image tag AND the NIM_MODEL_NAME variable to matching values. Browse available models at https://build.nvidia.com/models
