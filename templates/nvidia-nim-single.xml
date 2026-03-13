@@ -6,7 +6,7 @@
   <Category>AI: Tools:</Category>
   <Keywords>AI,LLM,local-ai,NVIDIA,NIM,CUDA,inference,OpenAI API,chatbot,language model</Keywords>
   <Repository>nvcr.io/nim/meta/llama-3.2-3b-instruct:latest</Repository>
-  <Registry>https://github.com/PikkonMG/unraid-docker-templates</Registry>
+  <Registry>nvcr.io</Registry>
   <GitHub>https://github.com/PikkonMG/unraid-docker-templates/</GitHub>
   <ReadMe>https://github.com/PikkonMG/unraid-docker-templates/blob/main/docs/NVIDIA-NIM_SINGLE.md</ReadMe>
   <Network>bridge</Network>
