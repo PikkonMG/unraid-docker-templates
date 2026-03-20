@@ -7,10 +7,10 @@
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/PikkonMG/Nexus-Orchestrator/issues</Support>
-  <Project>https://github.com/PikkonMG/Nexus-Orchestrator/</Project>
+  <Support>https://github.com/FaqFirebase/Nexus-Orchestrator/issues</Support>
+  <Project>https://github.com/FaqFirebase/Nexus-Orchestrator/</Project>
   <Overview>
-    Nexus Orchestrator is a self-hosted intelligent orchestration layer for local and cloud LLMs.
+    Nexus LLM Router is a self-hosted orchestration layer for local and cloud LLMs.
     It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint.
   </Overview>
   <Category>AI: Tools: Productivity:</Category>
@@ -24,7 +24,7 @@
   <DonateText/>
   <DonateLink/>
   <Description>
-    Nexus Orchestrator is a self-hosted intelligent orchestration layer for local and cloud LLMs.
+    Nexus LLM Router is a self-hosted orchestration layer for local and cloud LLMs.
     It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint.
   </Description>
   <Networking>
@@ -52,6 +52,11 @@
     </Variable>
     <Variable>
       <Value/>
+      <Name>ENCRYPTION_SECRET</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
       <Name>LOCAL_URL</Name>
       <Mode/>
     </Variable>
@@ -72,9 +77,10 @@
     </Variable>
   </Environment>
   <Labels/>
-  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="The port for the Nexus Orchestrator web interface." Type="Port" Display="always" Required="true" Mask="false"/>
+  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="The port for the Nexus LLM Router web interface." Type="Port" Display="always" Required="true" Mask="false"/>
   <Config Name="Config Directory" Target="/app/data/" Default="/mnt/user/appdata/nexus-orchestrator/" Mode="rw" Description="Path to the configuration directory for persistence." Type="Path" Display="always" Required="true" Mask="false"/>
   <Config Name="Admin API Key" Target="ADMIN_API_KEY" Default="" Mode="" Description="MANDATORY: Set an API key to protect the orchestrator, admin, and configuration endpoints. All API access is disabled until this is set." Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="Encryption Secret" Target="ENCRYPTION_SECRET" Default="" Mode="" Description="Optional: A separate secret for encrypting stored data. If not set, derives from Admin API Key." Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="Local Provider URL" Target="LOCAL_URL" Default="http://[YOUR_HOST_IP]:11434" Mode="" Description="The URL of your local LLM provider. DO NOT use 'localhost' (it refers to the container). Use your server's IP. For Ollama: http://[IP]:11434. For Open WebUI: http://[IP]:8080/api." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Local Provider Key" Target="LOCAL_KEY" Default="" Mode="" Description="The API key for your local LLM provider." Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="Cloud Provider URL" Target="CLOUD_URL" Default="https://generativelanguage.googleapis.com/v1beta/openai" Mode="" Description="The OpenAI-compatible URL for your cloud provider (defaults to Gemini)." Type="Variable" Display="always" Required="false" Mask="false"/>
