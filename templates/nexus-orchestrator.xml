@@ -15,7 +15,7 @@
   </Overview>
   <Category>AI: Tools: Productivity:</Category>
   <WebUI>http://[IP]:[PORT:3000]</WebUI>
-  <TemplateURL/>
+  <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/nexus-orchestrator.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/nexus-model-router.png</Icon>
   <ExtraParams/>
   <PostArgs/>
