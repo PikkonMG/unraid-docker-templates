@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Container version="2">
-  <Name>Nexus-LLM-Router</Name>
+  <Name>Nexus-Orchestrator</Name>
   <Repository>pikkonmg/nexus-orchestrator</Repository>
   <Registry>https://hub.docker.com/r/pikkonmg/nexus-orchestrator/</Registry>
   <Network>bridge</Network>
@@ -10,7 +10,7 @@
   <Support>https://github.com/FaqFirebase/Nexus-Orchestrator/issues</Support>
   <Project>https://github.com/FaqFirebase/Nexus-Orchestrator/</Project>
   <Overview>
-    Nexus LLM Router is a self-hosted orchestration layer for local and cloud LLMs.
+    Nexus Orchestrator is a self-hosted orchestration layer for local and cloud LLMs.
     It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint.
   </Overview>
   <Category>AI: Tools: Productivity:</Category>
@@ -24,7 +24,7 @@
   <DonateText/>
   <DonateLink/>
   <Description>
-    Nexus LLM Router is a self-hosted orchestration layer for local and cloud LLMs.
+    Nexus Orchestrator is a self-hosted orchestration layer for local and cloud LLMs.
     It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint.
   </Description>
   <Networking>
@@ -77,7 +77,7 @@
     </Variable>
   </Environment>
   <Labels/>
-  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="The port for the Nexus LLM Router web interface." Type="Port" Display="always" Required="true" Mask="false"/>
+  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="The port for the Nexus Orchestrator web interface." Type="Port" Display="always" Required="true" Mask="false"/>
   <Config Name="Config Directory" Target="/app/data/" Default="/mnt/user/appdata/nexus-orchestrator/" Mode="rw" Description="Path to the configuration directory for persistence." Type="Path" Display="always" Required="true" Mask="false"/>
   <Config Name="Admin API Key" Target="ADMIN_API_KEY" Default="" Mode="" Description="MANDATORY: Set an API key to protect the orchestrator, admin, and configuration endpoints. All API access is disabled until this is set." Type="Variable" Display="always" Required="true" Mask="true"/>
   <Config Name="Encryption Secret" Target="ENCRYPTION_SECRET" Default="" Mode="" Description="Optional: A separate secret for encrypting stored data. If not set, derives from Admin API Key." Type="Variable" Display="always" Required="false" Mask="true"/>
