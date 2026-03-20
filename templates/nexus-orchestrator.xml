@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Container version="2">
-  <Name>NexusOrchestrator</Name>
+  <Name>Nexus-LLM-Router</Name>
   <Repository>pikkonmg/nexus-orchestrator</Repository>
   <Registry>https://hub.docker.com/r/pikkonmg/nexus-orchestrator/</Registry>
   <Network>bridge</Network>
