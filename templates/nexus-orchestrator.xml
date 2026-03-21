@@ -67,11 +67,26 @@
     </Variable>
     <Variable>
       <Name>CLOUD_URL</Name>
-      <Value>https://generativelanguage.googleapis.com/v1beta/openai</Value>
+      <Value></Value>
       <Mode/>
     </Variable>
     <Variable>
       <Name>CLOUD_API_KEY</Name>
+      <Value/>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Name>ROUTER_MODEL</Name>
+      <Value/>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Name>ROUTER_URL</Name>
+      <Value/>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Name>ROUTER_KEY</Name>
       <Value/>
       <Mode/>
     </Variable>
@@ -83,6 +98,9 @@
   <Config Name="Encryption Secret" Target="ENCRYPTION_SECRET" Default="" Mode="" Description="Optional: A separate secret for encrypting stored data. If not set, derives from Admin API Key." Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="Local Provider URL" Target="LOCAL_URL" Default="http://[YOUR_HOST_IP]:11434" Mode="" Description="The URL of your local LLM provider. DO NOT use 'localhost' (it refers to the container). Use your server's IP. For Ollama: http://[IP]:11434. For Open WebUI: http://[IP]:8080/api." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Local Provider Key" Target="LOCAL_KEY" Default="" Mode="" Description="The API key for your local LLM provider." Type="Variable" Display="always" Required="false" Mask="true"/>
-  <Config Name="Cloud Provider URL" Target="CLOUD_URL" Default="https://generativelanguage.googleapis.com/v1beta/openai" Mode="" Description="The OpenAI-compatible URL for your cloud provider (defaults to Gemini)." Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="Cloud API Key" Target="CLOUD_API_KEY" Default="" Mode="" Description="The API key for your cloud provider (e.g., Gemini or OpenRouter)." Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="Cloud Provider URL" Target="CLOUD_URL" Default="" Mode="" Description="The OpenAI-compatible base URL for your cloud provider (e.g. Gemini, OpenRouter, OpenAI)." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Cloud API Key" Target="CLOUD_API_KEY" Default="" Mode="" Description="The API key for your cloud provider (e.g., Gemini or OpenRouter)." Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="Router Model" Target="ROUTER_MODEL" Default="" Mode="" Description="The model used to classify prompt intent and route to the right category (e.g. gemma3:4b, gemini-2.0-flash-lite)." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Router URL" Target="ROUTER_URL" Default="" Mode="" Description="Optional: Custom URL for the intent router. Leave blank to use Local Provider URL." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Router Key" Target="ROUTER_KEY" Default="" Mode="" Description="Optional: Custom API key for the intent router endpoint." Type="Variable" Display="always" Required="false" Mask="true"/>
 </Container>
