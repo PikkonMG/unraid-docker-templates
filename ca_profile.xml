@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ApplicationFeed>
-  <Branch>
-    <Tag>main</Tag>
-    <Description>NVIDIA NIM templates for Unraid</Description>
-    <ReadMe>https://raw.githubusercontent.com/PikkonMG/unraid-nvidia-nim/main/README.md</ReadMe>
-    <Repository>https://github.com/PikkonMG/unraid-nvidia-nim</Repository>
-    <TemplateList>
-      <Template>nvidia-nim.xml</Template>
-    </TemplateList>
-  </Branch>
-</ApplicationFeed>
+<Maintainer>
+  <Icon></Icon>
+  <Profile>
+    Creating Docker containers and templates for Unraid
+  </Profile>
+  <DonateLink></DonateLink>
+  <DonateText></DonateText>
+</Maintainer>
