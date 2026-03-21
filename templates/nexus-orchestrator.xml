@@ -17,6 +17,11 @@
   <WebUI>http://[IP]:[PORT:3000]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/nexus-orchestrator.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/FaqFirebase/Nexus-Orchestrator/master/img/nexus-orchestrator.png</Icon>
+  <Screenshot>https://raw.githubusercontent.com/FaqFirebase/Nexus-Orchestrator/master/screenshots/nexus1.png</Screenshot>
+  <Screenshot>https://raw.githubusercontent.com/FaqFirebase/Nexus-Orchestrator/master/screenshots/nexus2.png</Screenshot>
+  <Screenshot>https://raw.githubusercontent.com/FaqFirebase/Nexus-Orchestrator/master/screenshots/nexus3.png</Screenshot>
+  <Screenshot>https://raw.githubusercontent.com/FaqFirebase/Nexus-Orchestrator/master/screenshots/nexus4.png</Screenshot>
+  <ReadMe>https://github.com/FaqFirebase/Nexus-Orchestrator/blob/master/README.md</ReadMe>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
