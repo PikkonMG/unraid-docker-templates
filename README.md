@@ -56,15 +56,8 @@ Each template has its own detailed documentation inside the `docs` folder.
 
 Contributions are welcome.
 
-If you want to submit improvements:
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
 ---
 
-## License
-Licensed under the **GPL-3.0 License**.  
+## License 
 See the [LICENSE](LICENSE) file for details.
 This repository is provided as-is for the Unraid community.
