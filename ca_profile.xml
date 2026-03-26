@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Maintainer>
-  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/faq_avatar.jpg
-</Icon>
+  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/faq_avatar.jpg</Icon>
   <Profile>
     Creating Docker containers and templates for Unraid
   </Profile>
