@@ -26,6 +26,22 @@ Features:
 - Supports modern LLM inference workloads
 
 ---
+### Nexus Orchestrator
+
+A self-hosted LLM orchestration layer that intelligently routes each prompt to the best local or cloud model — privacy-first, Ollama-native, no cloud defaults.
+
+📄 Documentation:  
+➡️ [Nexus Orchestrator Guide](docs/Nexus_UNRAID_GUIDE.md)
+
+Features:
+
+- Intelligent intent routing — classifies prompts (CODING, REASONING, CREATIVE, VISION, etc.) and dispatches to the right model automatically
+- Hybrid local + cloud orchestration — per-category Local/Cloud provider toggle
+- Vision and document support — attach images and files directly in chat
+- Projects — organize conversations into named sidebar folders
+- Privacy-first — all provider URLs and models start empty, 100% local operation supported
+
+---
 
 ## Requirements
 
