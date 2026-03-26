@@ -38,6 +38,8 @@ Run Nexus Orchestrator on Unraid using Docker. This guide covers installation, c
 ### Manual Template
 
 If the CA template is not yet available, click **Add Container** in the Unraid Docker tab and fill in the following fields.
+Or
+Copy the template to your flash drive: /boot/config/plugins/dockerMan/templates-user/nexus-orchestrator.xml
 
 #### Basic Settings
 
