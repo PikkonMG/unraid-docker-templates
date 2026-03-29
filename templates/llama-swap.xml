@@ -102,5 +102,5 @@
     Display="advanced"
     Required="false"
     Mask="false"
-    >compute,utility</Config>
+    >all</Config>
 </Container>
