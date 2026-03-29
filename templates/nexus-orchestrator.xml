@@ -29,8 +29,14 @@
   <DonateText/>
   <DonateLink/>
   <Description>
-    Nexus Orchestrator is a self-hosted orchestration layer for local and cloud LLMs.
-    It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint.
+    Nexus Orchestrator is a self-hosted orchestration layer for local and cloud LLMs. &#xD;
+    It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint. &#xD;
+    Features: &#xD;
+    Intelligent intent routing — classifies prompts (CODING, REASONING, CREATIVE, VISION, etc.) and dispatches to the right model automatically &#xD;
+    Hybrid local + cloud orchestration — per-category Local/Cloud provider toggle &#xD;
+    Vision and document support — attach images and files directly in chat &#xD;
+    Projects — organize conversations into named sidebar folders &#xD;
+    Be sure to view README https://github.com/PikkonMG/unraid-docker-templates/blob/main/docs/Nexus_UNRAID_GUIDE.md &#xD;
   </Description>
   <Networking>
     <Mode>bridge</Mode>

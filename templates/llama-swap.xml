@@ -25,20 +25,20 @@
   <Project>https://github.com/mostlygeek/llama-swap</Project>
   <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/llama-swap.xml</TemplateURL>
   <Overview>
-    llama-swap is a lightweight proxy server that provides automatic model swapping for llama.cpp (llama-server).&#xD;
+    llama-swap is a lightweight proxy server that provides automatic model swapping for llama.cpp (llama-server). &#xD;
     &#xD;
-    It hot-swaps models on demand based on API requests so you can serve many GGUF models from a single endpoint without restarting.&#xD;
+    It hot-swaps models on demand based on API requests so you can serve many GGUF models from a single endpoint without restarting. &#xD;
     &#xD;
-    Features: automatic model loading/unloading, macros, aliases, groups for multi-model concurrency, TTL auto-unload, streaming log viewer, and OpenAI-compatible API.&#xD;
+    Features: automatic model loading/unloading, macros, aliases, groups for multi-model concurrency, TTL auto-unload, streaming log viewer, and OpenAI-compatible API. &#xD;
     &#xD;
-    SETUP:&#xD;
-    1. Place your GGUF model files in the Models path below.&#xD;
-    2. Create a config.yaml (see template https://github.com/PikkonMG/unraid-docker-templates/blob/main/examples/llama-swap/example-llama-swap-config.yaml) and place it in the Config path.&#xD;
-    3. In your config.yaml, reference models as /models/yourmodel.gguf&#xD;
-    4. For NVIDIA GPU: install the Unraid Nvidia plugin, select the cuda tag, and set ExtraParams to: --gpus all&#xD;
-    5. For AMD GPU: select the rocm tag and set ExtraParams to: --device /dev/kfd --device /dev/dri --group-add video --security-opt seccomp=unconfined&#xD;
-    6. For Intel iGPU or other Vulkan-capable GPUs: select the vulkan tag and set ExtraParams to: --device /dev/dri&#xD;
-    7. For CPU only: select the cpu tag and remove ExtraParams entirely&#xD;
+    SETUP: &#xD;
+    1. Place your GGUF model files in the Models path below. &#xD;
+    2. Create a config.yaml (see template https://github.com/PikkonMG/unraid-docker-templates/blob/main/examples/llama-swap/example-llama-swap-config.yaml) and place it in the Config path. &#xD;
+    3. In your config.yaml, reference models as /models/yourmodel.gguf &#xD;
+    4. For NVIDIA GPU: install the Unraid Nvidia plugin, select the cuda tag, and set ExtraParams to: --gpus all &#xD;
+    5. For AMD GPU: select the rocm tag and set ExtraParams to: --device /dev/kfd --device /dev/dri --group-add video --security-opt seccomp=unconfined &#xD;
+    6. For Intel iGPU or other Vulkan-capable GPUs: select the vulkan tag and set ExtraParams to: --device /dev/dri &#xD;
+    7. For CPU only: select the cpu tag and remove ExtraParams entirely &#xD;
   </Overview>
   <Category>AI: Productivity: Tools: Other</Category>
   <WebUI>http://[IP]:[PORT:8080]/ui</WebUI>

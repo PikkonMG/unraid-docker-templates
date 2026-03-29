@@ -14,38 +14,38 @@
   <Privileged>false</Privileged>
   <Support>https://forums.unraid.net/topic/197721-support-nvidia-nim-on-unraid-gpu-ai-inference-server/</Support>
   <Project>https://build.nvidia.com/</Project>
-  <Overview>NVIDIA NIM AI inference server for running LLMs locally on NVIDIA GPUs with CUDA acceleration and an OpenAI-compatible API.
+  <Overview>NVIDIA NIM AI inference server for running LLMs locally on NVIDIA GPUs with CUDA acceleration and an OpenAI-compatible API. &#xD;
     
-Be sure to check out for NIM related support https://developer.nvidia.com/nim
+Be sure to check out for NIM related support https://developer.nvidia.com/nim &#xD;
     
-DEFAULT MODEL: meta/llama-3.2-3b-instruct -- recommended for GPUs with 12 GB VRAM or less (RTX 3060, 3070, etc).
+DEFAULT MODEL: meta/llama-3.2-3b-instruct -- recommended for GPUs with 12 GB VRAM or less (RTX 3060, 3070, etc). &#xD;
 
-TO CHANGE MODELS: Update BOTH the Repository image tag AND the NIM_MODEL_NAME variable to matching values. Browse available models at https://build.nvidia.com/models
+TO CHANGE MODELS: Update BOTH the Repository image tag AND the NIM_MODEL_NAME variable to matching values. Browse available models at https://build.nvidia.com/models &#xD;
 
-VRAM REQUIREMENTS (approximate):
-  - Llama 3.2 3B   ~6 GB  -- fits 8-12 GB cards
-  - Mistral 7B     ~14 GB -- needs 16 GB+ (fp16 uses more than expected)
-  - Llama 3.1 8B   ~22 GB -- needs 24 GB+
-  - Llama 3.1 70B  ~80 GB -- multi-GPU only
+VRAM REQUIREMENTS (approximate): &#xD;
+  - Llama 3.2 3B   ~6 GB  -- fits 8-12 GB cards &#xD;
+  - Mistral 7B     ~14 GB -- needs 16 GB+ (fp16 uses more than expected) &#xD;
+  - Llama 3.1 8B   ~22 GB -- needs 24 GB+ &#xD;
+  - Llama 3.1 70B  ~80 GB -- multi-GPU only &#xD;
 
-BEFORE FIRST START -- REQUIRED STEPS (run once in Unraid terminal):
+BEFORE FIRST START -- REQUIRED STEPS (run once in Unraid terminal): &#xD;
 
-  Step 1: Login to NGC registry (only needed once, persists until reboot):
-    docker login nvcr.io
-    Username: $oauthtoken
-    Password: YOUR_NGC_API_KEY
+  Step 1: Login to NGC registry (only needed once, persists until reboot): &#xD;
+    docker login nvcr.io &#xD;
+    Username: $oauthtoken &#xD;
+    Password: YOUR_NGC_API_KEY &#xD;
 
-  REQUIRED BEFORE FIRST START -- run in Unraid terminal:
-  Step 2: Fix cache directory permissions:
-    chown -R 1000:1000 /mnt/user/appdata/nvidia-nim/cache
-    chmod -R 775 /mnt/user/appdata/nvidia-nim/cache
+  REQUIRED BEFORE FIRST START -- run in Unraid terminal: &#xD;
+  Step 2: Fix cache directory permissions: &#xD;
+    chown -R 1000:1000 /mnt/user/appdata/nvidia-nim/cache &#xD;
+    chmod -R 775 /mnt/user/appdata/nvidia-nim/cache &#xD;
 
-REQUIRES: NVIDIA GPU (Turing/RTX 20 series or newer) | nvidia-driver Unraid plugin | NGC API key from build.nvidia.com
+REQUIRES: NVIDIA GPU (Turing/RTX 20 series or newer) | nvidia-driver Unraid plugin | NGC API key from build.nvidia.com &#xD;
 
-URLS (replace YOUR_SERVER_IP with your Unraid IP):
-  WebUI / Swagger docs : http://YOUR_SERVER_IP:8000/docs
-  API base URL         : http://YOUR_SERVER_IP:8000/v1   (use this in AnythingLLM, Open WebUI, etc.)
-  Models list          : http://YOUR_SERVER_IP:8000/v1/models</Overview>
+URLS (replace YOUR_SERVER_IP with your Unraid IP): &#xD;
+  WebUI / Swagger docs : http://YOUR_SERVER_IP:8000/docs &#xD;
+  API base URL         : http://YOUR_SERVER_IP:8000/v1   (use this in AnythingLLM, Open WebUI, etc.) &#xD;
+  Models list          : http://YOUR_SERVER_IP:8000/v1/models &#xD;</Overview>
   <WebUI>http://[IP]:[PORT:8000]/docs</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/nvidia-nim-single.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/nvidia-nim-single.png</Icon>
