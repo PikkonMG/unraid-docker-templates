@@ -21,7 +21,7 @@
   </Branch>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
-  <Support>https://github.com/mostlygeek/llama-swap/issues</Support>
+  <Support>https://forums.unraid.net/topic/197997-support-llama-swap-hot-model-swapping-for-llamacpp/</Support>
   <Project>https://github.com/mostlygeek/llama-swap</Project>
   <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/llama-swap.xml</TemplateURL>
   <Overview>
