@@ -23,6 +23,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/mostlygeek/llama-swap/issues</Support>
   <Project>https://github.com/mostlygeek/llama-swap</Project>
+  <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/llama-swap.xml</TemplateURL>
   <Overview>
     llama-swap is a lightweight proxy server that provides automatic model swapping for llama.cpp (llama-server).&#xD;
     &#xD;
@@ -45,6 +46,10 @@
   <Screenshot>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/docs/screenshots/llama-swap-screenshot1.png</Screenshot>
   <ExtraParams>--gpus all</ExtraParams>
   <PostArgs>-config /config/config.yaml -watch-config</PostArgs>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
   <Config
     Name="Web UI / API Port"
     Target="8080"
