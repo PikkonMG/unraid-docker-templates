@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>llama-swap</Name>
+  <Repository>ghcr.io/mostlygeek/llama-swap:cuda</Repository>
+  <Registry>https://github.com/mostlygeek/llama-swap</Registry>
+  <Branch>
+    <Tag>cuda</Tag>
+    <TagDescription>CUDA GPU accelerated (NVIDIA) Extra Parameters: --gpus all</TagDescription>
+  </Branch>
+  <Branch>
+    <Tag>cpu</Tag>
+    <TagDescription>CPU only (no GPU required)</TagDescription>
+  </Branch>
+  <Branch>
+    <Tag>rocm</Tag>
+    <TagDescription>ROCm GPU accelerated (AMD) — best performance for AMD GPUs Extra Parameters: --device=/dev/kfd --device=/dev/dri --group-add video --security-opt seccomp=unconfined</TagDescription>
+  </Branch>
+  <Branch>
+    <Tag>vulkan</Tag>
+    <TagDescription>Vulkan GPU accelerated (AMD/Intel) Extra Parameters: --device=/dev/dri</TagDescription>
+  </Branch>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/mostlygeek/llama-swap/issues</Support>
+  <Project>https://github.com/mostlygeek/llama-swap</Project>
+  <Overview>
+    llama-swap is a lightweight proxy server that provides automatic model swapping for llama.cpp (llama-server).&#xD;
+    &#xD;
+    It hot-swaps models on demand based on API requests so you can serve many GGUF models from a single endpoint without restarting.&#xD;
+    &#xD;
+    Features: automatic model loading/unloading, macros, aliases, groups for multi-model concurrency, TTL auto-unload, streaming log viewer, and OpenAI-compatible API.&#xD;
+    &#xD;
+    SETUP:&#xD;
+    1. Place your GGUF model files in the Models path below.&#xD;
+    2. Create a config.yaml (see template https://github.com/PikkonMG/unraid-docker-templates/blob/main/examples/llama-swap/example-llama-swap-config.yaml) and place it in the Config path.&#xD;
+    3. In your config.yaml, reference models as /models/yourmodel.gguf&#xD;
+    4. For NVIDIA GPU: install the Unraid Nvidia plugin, select the cuda tag, and set ExtraParams to: --gpus all&#xD;
+    5. For AMD GPU: select the rocm tag and set ExtraParams to: --device /dev/kfd --device /dev/dri --group-add video --security-opt seccomp=unconfined&#xD;
+    6. For Intel iGPU or other Vulkan-capable GPUs: select the vulkan tag and set ExtraParams to: --device /dev/dri&#xD;
+    7. For CPU only: select the cpu tag and remove ExtraParams entirely&#xD;
+  </Overview>
+  <Category>AI: Productivity: Tools: Other</Category>
+  <WebUI>http://[IP]:[PORT:8080]/ui</WebUI>
+  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/llama-swap.png</Icon>
+  <Screenshot>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/docs/screenshots/llama-swap-screenshot1.png</Screenshot>
+  <ExtraParams>--gpus all</ExtraParams>
+  <PostArgs>-config /config/config.yaml -watch-config</PostArgs>
+  <Config
+    Name="Web UI / API Port"
+    Target="8080"
+    Default="8080"
+    Mode="tcp"
+    Description="Port for the OpenAI-compatible API and log viewer web UI."
+    Type="Port"
+    Display="always"
+    Required="true"
+    Mask="false"
+  >8080</Config>
+  <Config
+    Name="Models Directory"
+    Target="/models"
+    Default="/mnt/user/appdata/llama-swap/models"
+    Mode="ro"
+    Description="Path to the folder containing your GGUF model files. Referenced in config.yaml as /models/filename.gguf"
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false"
+  >/mnt/user/appdata/llama-swap/models</Config>
+  <Config
+    Name="Config Directory"
+    Target="/config"
+    Default="/mnt/user/appdata/llama-swap/config"
+    Mode="rw"
+    Description="Path to the folder containing your config.yaml file. Hot-reload should be enabled via -watch-config."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false"
+  >/mnt/user/appdata/llama-swap/config</Config>
+  <Config
+    Name="NVIDIA_VISIBLE_DEVICES"
+    Target="NVIDIA_VISIBLE_DEVICES"
+    Default="all"
+    Description="Which NVIDIA GPU(s) to expose. Use 'all' or a specific GPU UUID from the Nvidia plugin settings page. Only needed for NVIDIA tags."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"
+    >all</Config>
+  <Config
+    Name="NVIDIA_DRIVER_CAPABILITIES"
+    Target="NVIDIA_DRIVER_CAPABILITIES"
+    Default="all"
+    Description="NVIDIA driver capabilities to expose. Use 'compute,utility' for LLM inference or 'all' for full access."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false"
+    >compute,utility</Config>
+</Container>
