@@ -43,6 +43,22 @@ Features:
 
 ---
 
+### llama-swap
+
+A lightweight proxy for `llama.cpp` that automatically swaps models in and out, making it easier to run multiple GGUF models on Unraid without keeping them all loaded at once.
+
+📄 Documentation:  
+➡️ [llama-swap Guide](docs/LLAMA-SWAP.md)
+
+Features:
+
+- Hot-swapping for `llama.cpp` / `llama-server`
+- Helps manage multiple models
+- Unraid-friendly config and model path setup
+- Useful for local multi-model workflows
+
+---
+
 ## Requirements
 
 Some templates may require:

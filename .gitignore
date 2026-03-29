@@ -19,6 +19,8 @@ conversations.json
 !.env.example
 
 # Editor & OS
+.codex
+.codex/
 .claude/
 .cursor/
 .DS_Store
