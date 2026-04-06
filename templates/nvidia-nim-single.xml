@@ -30,6 +30,8 @@ VRAM REQUIREMENTS (approximate): &#xD;
 
 BEFORE FIRST START -- REQUIRED STEPS (run once in Unraid terminal): &#xD;
 
+Before you can pull the image you must have a NVIDIA API key from https://build.nvidia.com. Generate a Personal API Key from your profile. &#xD;
+
   Step 1: Login to NGC registry (only needed once, persists until reboot): &#xD;
     docker login nvcr.io &#xD;
     Username: $oauthtoken &#xD;
