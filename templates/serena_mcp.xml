@@ -7,7 +7,7 @@
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/oraios/serena/issues</Support>
+  <Support>https://forums.unraid.net/topic/198400-support-serena-mcp-server/</Support>
   <Project>https://github.com/oraios/serena</Project>
   <Overview>
     Serena is a powerful MCP toolkit for coding, providing semantic code retrieval and editing capabilities using language servers (LSP).
