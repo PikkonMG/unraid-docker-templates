@@ -43,6 +43,23 @@ Features:
 
 ---
 
+### Serena-MCP
+
+A self-hosted MCP (Model Context Protocol) server that gives AI coding agents IDE-level code intelligence using language servers (LSP). Works with Claude Code, Claude Desktop, and any MCP-compatible client.
+
+📄 Documentation:  
+➡️ [Serena-MCP Guide](docs/SERENA-MCP.md)
+
+Features:
+
+- Semantic code navigation — find definitions, references, and symbols across your codebase
+- Language server integration — supports Python, TypeScript, Go, Java, C/C++, PHP, and more
+- MCP-compatible — works with Claude, Claude Code, and any MCP-enabled client
+- Web dashboard — monitor and manage Serena via browser
+- Streamable-HTTP transport — modern MCP transport protocol
+
+---
+
 ### llama-swap
 
 A lightweight proxy for `llama.cpp` that automatically swaps models in and out, making it easier to run multiple GGUF models on Unraid without keeping them all loaded at once.

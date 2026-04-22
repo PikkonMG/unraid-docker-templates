@@ -26,8 +26,8 @@
   <PostArgs/>
   <CPUset/>
   <DateInstalled/>
-  <DonateText/>
-  <DonateLink/>
+  <DonateText>Templates are free, coffee is optional</DonateText>
+  <DonateLink>https://paypal.me/HighlandJewls</DonateLink>
   <Description>
     Nexus Orchestrator is a self-hosted orchestration layer for local and cloud LLMs. &#xD;
     It automatically routes prompts to the best model in your infrastructure using an OpenAI-compatible endpoint. &#xD;

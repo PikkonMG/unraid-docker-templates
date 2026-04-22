@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Serena-MCP</Name>
+  <Repository>ghcr.io/oraios/serena</Repository>
+  <Registry>https://github.com/oraios/serena/pkgs/container/serena</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/oraios/serena/issues</Support>
+  <Project>https://github.com/oraios/serena</Project>
+  <Overview>
+    Serena is a powerful MCP toolkit for coding, providing semantic code retrieval and editing capabilities using language servers (LSP).
+    It acts as an IDE for your AI agent, enabling intelligent code navigation, refactoring, and editing across your projects.
+  </Overview>
+  <Category>AI: Tools: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:24282]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/serena_mcp.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/refs/heads/main/templates/img/serena.png</Icon>
+  <ReadMe>https://github.com/oraios/serena/blob/main/DOCKER.md</ReadMe>
+  <ExtraParams/>
+  <PostArgs>uv run --directory /workspaces/serena serena start-mcp-server --transport streamable-http --port 9121 --host 0.0.0.0</PostArgs>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText>Templates are free, coffee is optional</DonateText>
+  <DonateLink>https://paypal.me/HighlandJewls</DonateLink>
+  <Description>
+    Serena is a powerful MCP (Model Context Protocol) toolkit for coding agents. &#xD;
+    It provides semantic code retrieval and editing capabilities powered by language servers (LSP), giving your AI agent IDE-level code intelligence. &#xD;
+    &#xD;
+    Features: &#xD;
+    Semantic code navigation — find definitions, references, and symbols across your codebase &#xD;
+    Language server integration — supports Python, TypeScript, Go, Java, C/C++, PHP, and more &#xD;
+    MCP-compatible — works with Claude, Claude Code, and any MCP-enabled client &#xD;
+    Web dashboard — monitor and manage Serena via browser &#xD;
+    &#xD;
+    FIRST START SETUP (required for dashboard access): &#xD;
+    After the first start, edit /mnt/user/appdata/serena-mcp/config/serena_config.yml and change: &#xD;
+    web_dashboard_listen_address: 127.0.0.1  ->  web_dashboard_listen_address: 0.0.0.0 &#xD;
+    Also set: &#xD;
+    gui_log_window: False &#xD;
+    web_dashboard_open_on_launch: False &#xD;
+    Then restart the container. This only needs to be done once. &#xD;
+    &#xD;
+    PROJECT MOUNTING: &#xD;
+    Each project must be mounted as its own volume. In the Unraid template UI, click "Add another Path" for each project: &#xD;
+    Host path: /mnt/user/your-project-folder &#xD;
+    Container path: /workspace/your-project-folder &#xD;
+    Repeat for each project you want Serena to access. &#xD;
+    &#xD;
+    Connect your MCP client to http://[IP]:9121/mcp (streamable-http transport). &#xD;
+    See DOCKER.md for full setup instructions: https://github.com/oraios/serena/blob/main/DOCKER.md &#xD;
+  </Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>9121</HostPort>
+        <ContainerPort>9121</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>24282</HostPort>
+        <ContainerPort>24282</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/serena-mcp/config/</HostDir>
+      <ContainerDir>/workspaces/serena/config/</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>1</Value>
+      <Name>SERENA_DOCKER</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INTELEPHENSE_LICENSE_KEY</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Labels/>
+  <Config Name="MCP Server Port" Target="9121" Default="9121" Mode="tcp" Description="Port for the Serena MCP server. Connect your MCP client to http://[IP]:[PORT]/mcp (streamable-http transport)." Type="Port" Display="always" Required="true" Mask="false">9121</Config>
+  <Config Name="Dashboard Port" Target="24282" Default="24282" Mode="tcp" Description="Port for the Serena web dashboard." Type="Port" Display="always" Required="true" Mask="false">24282</Config>
+  <Config Name="Config Directory" Target="/workspaces/serena/config/" Default="/mnt/user/appdata/serena-mcp/config/" Mode="rw" Description="Persistent storage for Serena config, memories, and project data. After first start, edit serena_config.yml here and set web_dashboard_listen_address to 0.0.0.0, then restart." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/serena-mcp/config/</Config>
+  <Config Name="Project Directory" Target="/workspace/project/" Default="" Mode="rw" Description="Optional: select an existing project directory to mount into Serena. Leave blank to avoid creating a placeholder folder. For additional projects, add another Path with container path /workspace/[project-name]/." Type="Path" Display="always" Required="false" Mask="false"/>
+
+  <Config Name="Serena Docker Mode" Target="SERENA_DOCKER" Default="1" Mode="" Description="Enables Docker-specific behavior in Serena. Keep set to 1." Type="Variable" Display="advanced" Required="true" Mask="false">1</Config>
+  <Config Name="Intelephense License Key" Target="INTELEPHENSE_LICENSE_KEY" Default="" Mode="" Description="Optional: License key for Intelephense PHP language server premium features." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+</Container>

@@ -23,9 +23,13 @@ conversations.json
 .codex/
 .claude/
 .cursor/
+.kilo
 .DS_Store
 
 # Logs
 *.log
 
 unraid-docker-templates.code-workspace
+
+# Templates (deprecated / not yet ready)
+templates/hermes-agent.xml
