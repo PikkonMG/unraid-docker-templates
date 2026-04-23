@@ -34,8 +34,6 @@
   <PostArgs/>
   <CPUset/>
   <DateInstalled/>
-  <Description>Nexus Orchestrator is a self-hosted orchestration layer for local and cloud LLMs.
-  </Description>
   <Networking>
     <Mode>bridge</Mode>
     <Publish>

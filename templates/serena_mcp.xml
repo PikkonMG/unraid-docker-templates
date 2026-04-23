@@ -45,8 +45,6 @@
   <PostArgs>uv run --directory /workspaces/serena serena start-mcp-server --transport streamable-http --port 9121 --host 0.0.0.0</PostArgs>
   <CPUset/>
   <DateInstalled/>
-  <Description>Serena is a powerful MCP (Model Context Protocol) toolkit for coding agents.
-  </Description>
   <Networking>
     <Mode>bridge</Mode>
     <Publish>

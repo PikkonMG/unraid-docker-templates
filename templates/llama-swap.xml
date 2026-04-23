@@ -48,8 +48,6 @@
   <PostArgs>-config /config/config.yaml -watch-config</PostArgs>
   <CPUset/>
   <DateInstalled/>
-  <DonateText>Templates are free, coffee is optional</DonateText>
-  <DonateLink>https://paypal.me/HighlandJewls</DonateLink>
   <Config
     Name="Web UI / API Port"
     Target="8080"

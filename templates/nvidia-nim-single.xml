@@ -54,8 +54,6 @@ URLS (replace YOUR_SERVER_IP with your Unraid IP): &#xD;
   <ExtraParams>--gpus all --shm-size=16gb --ulimit memlock=-1 --ulimit stack=67108864</ExtraParams>
   <PostArgs/>
   <CPUset/>
-  <DonateText/>
-  <DonateLink/>
   <Requires>NVIDIA GPU (Turing or newer) | nvidia-driver plugin (Community Applications) | NGC API Key (build.nvidia.com)</Requires>
 
   <Config Name="API Port"
