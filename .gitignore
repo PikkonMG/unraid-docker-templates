@@ -33,3 +33,6 @@ unraid-docker-templates.code-workspace
 
 # Templates (deprecated / not yet ready)
 
+
+# Serena local tool config
+.serena/
