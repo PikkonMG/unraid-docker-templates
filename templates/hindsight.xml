@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Container version="2">
+  <Name>hindsight</Name>
+  <Repository>ghcr.io/vectorize-io/hindsight:latest</Repository>
+  <Registry>https://github.com/vectorize-io/hindsight/pkgs/container/hindsight</Registry>
+  <Network>bridge</Network>
+  <MyIP />
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/200491-support-hindsight-agent-memory-system/</Support>
+  <Project>https://github.com/vectorize-io/hindsight</Project>
+  <Overview>Shared memory for AI agents through MCP and HTTP. Includes the API, web UI, and embedded PostgreSQL for a first deployment.
+
+Before first start:
+1. The container runs as user 1000 and cannot fix folder ownership itself. Before the first start, run this in the Unraid terminal: mkdir -p /mnt/user/appdata/hindsight &amp;&amp; chown -R 1000:1000 /mnt/user/appdata/hindsight &amp;&amp; chmod 700 /mnt/user/appdata/hindsight
+   If you started the container first and the log says the database directory is not writable, stop the container, run the same command, and start it again.
+2. Local Ollama is selected by default. Set Model endpoint to your Ollama address and Model name to a model you have pulled. To use a hosted API instead, change Model service and paste its key into Model provider key.
+3. Set a strong Memory API key. Paste the SAME key into Web UI backend key. Set a separate Web UI login key.
+4. Open the WebUI. Agents use http://YOUR_UNRAID_IP:8888/mcp/YOUR_BANK/ with Authorization: Bearer YOUR_MEMORY_API_KEY. One bank per project.
+
+No project folders or Docker socket mounts are needed. Keep ports on a trusted network. Shared API keys grant access across every bank, so bank names are not separate access controls.
+Back up appdata while the container is stopped. For a long-lived shared service, use external PostgreSQL with pgvector as described in the guide.</Overview>
+  <Category>AI: Tools: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:9999]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/hindsight.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/hindsight.png</Icon>
+  <ReadMe>https://github.com/PikkonMG/unraid-docker-templates/blob/main/docs/HINDSIGHT.md</ReadMe>
+  <ExtraParams>--shm-size=1g --stop-timeout=60</ExtraParams>
+  <PostArgs />
+  <CPUset />
+  <DateInstalled />
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8888</HostPort>
+        <ContainerPort>8888</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>9999</HostPort>
+        <ContainerPort>9999</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/hindsight</HostDir>
+      <ContainerDir>/home/hindsight/.pg0</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment />
+  <Labels />
+  <Config Name="Memory API / MCP port" Target="8888" Default="8888" Mode="tcp" Description="Host port for API and MCP. Use /mcp/PROJECT/ and the Memory API key." Type="Port" Display="always" Required="true" Mask="false">8888</Config>
+  <Config Name="Web UI port" Target="9999" Default="9999" Mode="tcp" Description="Host port for the memory dashboard." Type="Port" Display="always" Required="true" Mask="false">9999</Config>
+  <Config Name="Memory data" Target="/home/hindsight/.pg0" Default="/mnt/user/appdata/hindsight" Mode="rw" Description="Embedded database. Prepare the host folder with owner 1000:1000 and mode 700 before starting. Do not map a code repository here." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/hindsight</Config>
+  <Config Name="Model service" Target="HINDSIGHT_API_LLM_PROVIDER" Default="ollama" Mode="" Description="Local Ollama is selected. Keep ollama unless you choose another service in the guide. Hosted options include openai, anthropic, gemini, groq, ollama-cloud, openrouter and deepseek." Type="Variable" Display="always" Required="true" Mask="false">ollama</Config>
+  <Config Name="Model name" Target="HINDSIGHT_API_LLM_MODEL" Default="gemma4:12b" Mode="" Description="Exact name of a model already pulled in Ollama. The model must support tool calling and JSON output. gemma4:12b fits a 12 GB GPU. Gemma 3 has no tool calling and breaks reflect. Change this when you change Model service." Type="Variable" Display="always" Required="true" Mask="false">gemma4:12b</Config>
+  <Config Name="Model endpoint" Target="HINDSIGHT_API_LLM_BASE_URL" Default="" Mode="" Description="Needed for Ollama only. Use your Unraid IP, not localhost, for example http://YOUR_UNRAID_IP:11434/v1. Leave blank for hosted services." Type="Variable" Display="always" Required="false" Mask="false" />
+  <Config Name="Model provider key" Target="HINDSIGHT_API_LLM_API_KEY" Default="" Mode="" Description="Leave blank for local Ollama. Enter the key for your hosted service. This is not the Memory API key." Type="Variable" Display="always" Required="false" Mask="true" />
+  <Config Name="Ollama context size" Target="HINDSIGHT_API_LLM_OLLAMA_NUM_CTX" Default="16384" Mode="" Description="Ollama only. Prompt window in tokens. Upstream recommends setting this explicitly. Lower it if the model does not fit in memory." Type="Variable" Display="advanced" Required="false" Mask="false">16384</Config>
+  <Config Name="Parallel model calls" Target="HINDSIGHT_API_LLM_MAX_CONCURRENT" Default="1" Mode="" Description="Upstream recommends 1 for a local model. A single GPU serves one request at a time. Raise this for a hosted API." Type="Variable" Display="advanced" Required="false" Mask="false">1</Config>
+  <Config Name="Background observations" Target="HINDSIGHT_API_ENABLE_OBSERVATIONS" Default="false" Mode="" Description="Extra model calls after each save that build higher-level insights. Upstream recommends false for a local model because it is slow. Set true for a hosted API." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Model call timeout" Target="HINDSIGHT_API_LLM_TIMEOUT" Default="120" Mode="" Description="Seconds to wait for one model reply. Raise it for a slow local model. Do not leave this blank." Type="Variable" Display="advanced" Required="true" Mask="false">120</Config>
+  <Config Name="Database URL" Target="HINDSIGHT_API_DATABASE_URL" Default="pg0" Mode="" Description="Keep pg0 to use the embedded database in the Memory data folder. For an external PostgreSQL with pgvector, replace this with its connection string. Do not leave this blank." Type="Variable" Display="advanced" Required="true" Mask="false">pg0</Config>
+  <Config Name="Log level" Target="HINDSIGHT_API_LOG_LEVEL" Default="info" Mode="" Description="One of critical, error, warning, info or debug. Use debug when you need to report a problem." Type="Variable" Display="advanced" Required="false" Mask="false">info</Config>
+  <Config Name="Stateless MCP" Target="HINDSIGHT_API_MCP_STATELESS" Default="false" Mode="" Description="Keep false for normal use. Set true when a reverse proxy or client cannot hold a streaming session open." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Memory API key" Target="HINDSIGHT_API_TENANT_API_KEY" Default="" Mode="" Description="Required. Create a long random secret for agents. Paste the same value into Web UI backend key. No shared default is supplied." Type="Variable" Display="always" Required="true" Mask="true" />
+  <Config Name="Web UI backend key" Target="HINDSIGHT_CP_DATAPLANE_API_KEY" Default="" Mode="" Description="Required. Must exactly match Memory API key so the dashboard can read and write memory." Type="Variable" Display="always" Required="true" Mask="true" />
+  <Config Name="Web UI login key" Target="HINDSIGHT_CP_ACCESS_KEY" Default="" Mode="" Description="Required. Use a separate long random secret to sign in to the dashboard. Leaving this blank disables dashboard login." Type="Variable" Display="always" Required="true" Mask="true" />
+  <Config Name="API authentication" Target="HINDSIGHT_API_TENANT_EXTENSION" Default="hindsight_api.extensions.builtin.tenant:ApiKeyTenantExtension" Mode="" Description="Keep enabled. Startup fails when Memory API key is empty." Type="Variable" Display="advanced" Required="true" Mask="false">hindsight_api.extensions.builtin.tenant:ApiKeyTenantExtension</Config>
+  <Config Name="Web UI backend URL" Target="HINDSIGHT_CP_DATAPLANE_API_URL" Default="http://127.0.0.1:8888" Mode="" Description="Internal API address for the bundled dashboard. Leave unchanged when changing host port mappings." Type="Variable" Display="advanced" Required="true" Mask="false">http://127.0.0.1:8888</Config>
+  <Config Name="Worker identity" Target="HINDSIGHT_API_WORKER_ID" Default="hindsight-unraid" Mode="" Description="Keep stable across restarts so interrupted work keeps the same owner. Use a unique value for each instance sharing a database." Type="Variable" Display="advanced" Required="true" Mask="false">hindsight-unraid</Config>
+  <Config Name="MCP enabled" Target="HINDSIGHT_API_MCP_ENABLED" Default="true" Mode="" Description="Enable memory tools for MCP clients." Type="Variable" Display="advanced" Required="true" Mask="false">true</Config>
+  <Config Name="Container home" Target="HOME" Default="/home/hindsight" Mode="" Description="Path inside the container. Keep unchanged." Type="Variable" Display="advanced" Required="true" Mask="false">/home/hindsight</Config>
+  <Config Name="Time zone" Target="TZ" Default="America/New_York" Mode="" Description="Container time zone. Change to your local zone." Type="Variable" Display="advanced" Required="true" Mask="false">America/New_York</Config>
+</Container>

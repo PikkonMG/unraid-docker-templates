@@ -9,6 +9,25 @@ This repository focuses on providing **well-structured templates and documentati
 
 ## Available Templates
 
+### Hindsight
+
+Shared long-term memory for AI agents, reachable over MCP from any tool.
+
+📄 Documentation:  
+➡️ [Hindsight Guide](docs/HINDSIGHT.md)
+
+This template runs the **API, web dashboard, and embedded PostgreSQL** in one container, plus a separate AI model that turns saved text into searchable facts.
+
+Features:
+
+- Local Ollama by default, or a hosted API key service
+- A separate memory bank for each project
+- Shared by Claude Code, Cursor, Pi, Grok CLI, and Claude Desktop
+- Data kept under appdata, with no project folder mounts
+- API key and web dashboard login required
+
+---
+
 ### NVIDIA NIM (Single Model)
 
 Run NVIDIA NIM containers on Unraid to serve optimized AI inference models.
