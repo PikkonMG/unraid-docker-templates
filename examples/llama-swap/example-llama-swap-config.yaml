@@ -5,6 +5,11 @@
 # The container mounts your models folder to /models
 # so reference them as /models/yourfile.gguf
 #
+# YAML notes:
+# - Use spaces, not tabs
+# - Keep indentation consistent
+# - Quote model keys if they contain dots, colons, or other punctuation
+#
 # Edit this file and save — llama-swap will auto-reload (watch-config enabled).
 
 healthCheckTimeout: 120
@@ -25,7 +30,7 @@ macros:
 # Add one entry per GGUF file in your models folder.
 # The key (e.g. "qwen3-8b") is the model name used in API requests.
 models:
-  qwen3.5-9b:
+  "qwen3.5-9b":
     name: "Qwen3.5 9B Uncensored"
     cmd: |
       ${common}
@@ -58,6 +63,6 @@ models:
 #    swap: true
 #    exclusive: true
 #    members:
-#      - "qwen3-8b"
+#      - "qwen3.5-9b"
 #      - "llama3-8b"
-#       - "gemma3-12b"
+#      - "gemma3-12b"

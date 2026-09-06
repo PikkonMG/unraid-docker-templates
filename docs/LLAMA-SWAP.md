@@ -100,6 +100,7 @@ When editing `config.yaml`:
 - Reference model files as `/models/your-model.gguf`
 - Make sure the backend command inside the config matches the binaries available in your chosen image
 - Keep `-watch-config` enabled if you want config changes to reload automatically
+- Use spaces, not tabs, and quote model keys if they contain punctuation such as `.` or `:`
 
 ---
 
@@ -138,6 +139,17 @@ Check that:
 - Your GGUF files exist in the host models directory
 - The config references them as `/models/...`
 - The selected tag matches your hardware and runtime flags
+
+### `did not find expected key`
+
+This error comes from YAML parsing, not from the Unraid XML template itself.
+
+Check that:
+
+- Indentation uses spaces only
+- Every nested block under `models:` is aligned consistently
+- Model keys with punctuation are quoted, for example `"qwen3.5-9b":`
+- You did not leave a partially uncommented example block in the file
 
 ### NVIDIA container fails to use the GPU
 
