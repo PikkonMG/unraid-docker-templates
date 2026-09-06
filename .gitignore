@@ -32,6 +32,4 @@ conversations.json
 unraid-docker-templates.code-workspace
 
 # Templates (deprecated / not yet ready)
-templates/hermes-agent.xml
-templates/openclaw-gateway.xml
-templates/playwright.xml
+
