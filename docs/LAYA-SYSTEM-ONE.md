@@ -13,7 +13,9 @@ triage, moderation and guardrails in front of a larger model.
 
 Laya has no official Docker image. This template runs
 `pikkonmg/laya-system-one`, which is built from the upstream source and
-rebuilt when Laya has a new release.
+rebuilt when Laya has a new release. The Dockerfile and the build workflow
+are public at
+[PikkonMG/laya-system-one-docker](https://github.com/PikkonMG/laya-system-one-docker).
 
 ## First start
 
@@ -119,5 +121,6 @@ the cache.
 ## Sources
 
 - [Laya project](https://github.com/NandhaKishorM/laya)
+- [Image build repository](https://github.com/PikkonMG/laya-system-one-docker)
 - [Laya documentation](https://nandhakishorm.github.io/laya/)
 - [Laya HTTP serving settings](https://nandhakishorm.github.io/laya/docker/#http-serving)
