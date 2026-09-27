@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Container version="2">
+  <Name>laya-system-one</Name>
+  <Repository>pikkonmg/laya-system-one:cpu</Repository>
+  <Registry>https://hub.docker.com/r/pikkonmg/laya-system-one/</Registry>
+  <Branch>
+    <Tag>cpu</Tag>
+    <TagDescription>CPU only. Works on any server. Smallest download.</TagDescription>
+  </Branch>
+  <Branch>
+    <Tag>nvidia</Tag>
+    <TagDescription>NVIDIA GPU, driver 560 or newer. Needs the Unraid NVIDIA Driver plugin.</TagDescription>
+    <ExtraParams>--runtime=nvidia</ExtraParams>
+  </Branch>
+  <Network>bridge</Network>
+  <MyIP />
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/NandhaKishorM/laya/issues</Support>
+  <Project>https://github.com/NandhaKishorM/laya</Project>
+  <Overview>Laya System 1 decision engine. A fast model that answers typed questions about text in one pass: pick a choice, give a score, or say yes, no or unsure, each with a calibrated probability. It serves the Jev-compatible /v1/systemone HTTP API for routing, triage, moderation and guardrails.
+
+Before first start:
+1. Pick cpu or nvidia when you install. The nvidia choice sets Extra Parameters to --runtime=nvidia for you and needs the Unraid NVIDIA Driver plugin.
+2. Optional: set an API key. Clients then send Authorization: Bearer YOUR_API_KEY. Leave it blank for no key.
+3. The first start downloads the model weights (a few GB) into the Model cache folder. The container shows healthy when the models are loaded.
+
+The API docs page is at http://YOUR_UNRAID_IP:8012/docs. Keep the port on a trusted network.</Overview>
+  <Category>AI: Tools: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:8000]/docs</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/laya-system-one.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/PikkonMG/unraid-docker-templates/main/templates/img/laya-system-one.png</Icon>
+  <ReadMe>https://github.com/PikkonMG/unraid-docker-templates/blob/main/docs/LAYA-SYSTEM-ONE.md</ReadMe>
+  <ExtraParams />
+  <PostArgs />
+  <CPUset />
+  <DateInstalled />
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8012</HostPort>
+        <ContainerPort>8000</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/laya-system-one</HostDir>
+      <ContainerDir>/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment />
+  <Labels />
+  <Config Name="API port" Target="8000" Default="8012" Mode="tcp" Description="Host port for the /v1/systemone API, /health and the /docs page." Type="Port" Display="always" Required="true" Mask="false">8012</Config>
+  <Config Name="Model cache" Target="/data" Default="/mnt/user/appdata/laya-system-one" Mode="rw" Description="Downloaded model weights. The container sets the owner to PUID:PGID at start." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/laya-system-one</Config>
+  <Config Name="Models to load" Target="LAYA_MODELS" Default="english,typed-decisions|english|english,multilingual|english,multilingual,typed-decisions" Mode="" Description="Models loaded at start. More models use more memory, about 2 GB for english or typed-decisions and 1.5 GB for multilingual. Pick english,multilingual if you send text in other languages. Non-English text still loads multilingual on first use." Type="Variable" Display="always" Required="true" Mask="false">english,typed-decisions</Config>
+  <Config Name="API key" Target="LAYA_API_KEY" Default="" Mode="" Description="Optional. Blank means no key is needed. When set, clients send Authorization: Bearer YOUR_API_KEY. /health never needs a key." Type="Variable" Display="always" Required="false" Mask="true" />
+  <Config Name="Load models at start" Target="LAYA_PRELOAD" Default="1" Mode="" Description="1 loads the models before the server listens, so the first request is fast. 0 loads each model on its first request." Type="Variable" Display="always" Required="true" Mask="false">1</Config>
+  <Config Name="Auto typed decisions" Target="LAYA_AUTO_TASK" Default="0" Mode="" Description="1 lets the router send requests to the typed-decisions model on its own. 0 uses it only when a request names it." Type="Variable" Display="advanced" Required="false" Mask="false">0</Config>
+  <Config Name="CPU threads" Target="OMP_NUM_THREADS" Default="4" Mode="" Description="Threads for CPU work. Keep at or below your physical core count." Type="Variable" Display="advanced" Required="true" Mask="false">4</Config>
+  <Config Name="Max parallel requests" Target="LAYA_MAX_CONCURRENT" Default="16" Mode="" Description="Requests handled at once. Extra requests get HTTP 503 instead of waiting." Type="Variable" Display="advanced" Required="false" Mask="false">16</Config>
+  <Config Name="Hugging Face token" Target="HF_TOKEN" Default="" Mode="" Description="Optional. The default models are public and need no token." Type="Variable" Display="advanced" Required="false" Mask="true" />
+  <Config Name="Offline mode" Target="HF_HUB_OFFLINE" Default="0" Mode="" Description="1 uses only models already in the Model cache and never downloads." Type="Variable" Display="advanced" Required="false" Mask="false">0</Config>
+  <Config Name="Log level" Target="LAYA_LOG_LEVEL" Default="info" Mode="" Description="One of critical, error, warning, info, debug or trace." Type="Variable" Display="advanced" Required="false" Mask="false">info</Config>
+  <Config Name="NVIDIA GPU" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="nvidia tag only. Use all or one GPU UUID from the NVIDIA Driver plugin page." Type="Variable" Display="advanced" Required="false" Mask="false">all</Config>
+  <Config Name="NVIDIA capabilities" Target="NVIDIA_DRIVER_CAPABILITIES" Default="compute,utility" Mode="" Description="nvidia tag only. Keep compute,utility." Type="Variable" Display="advanced" Required="false" Mask="false">compute,utility</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="User the server runs as. Unraid default is 99 (nobody)." Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Group the server runs as. Unraid default is 100 (users)." Type="Variable" Display="advanced" Required="true" Mask="false">100</Config>
+</Container>

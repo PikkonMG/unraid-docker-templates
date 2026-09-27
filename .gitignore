@@ -32,7 +32,9 @@ conversations.json
 unraid-docker-templates.code-workspace
 
 # Templates (deprecated / not yet ready)
-
+templates/von-system-one.xml
+templates/img/von-system-one.png
+docs/VON-SYSTEM-ONE.md
 
 # Serena local tool config
 .serena/

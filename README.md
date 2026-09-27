@@ -95,6 +95,22 @@ Features:
 
 ---
 
+### Laya System 1
+
+A fast decision engine that answers typed questions about text in one pass, each with a probability. Useful for routing, triage, moderation and guardrails in front of a larger model.
+
+📄 Documentation:  
+➡️ [Laya System 1 Guide](docs/LAYA-SYSTEM-ONE.md)
+
+Features:
+
+- Choice, score and yes/no/unsure questions in one request
+- 100+ languages, with a router that picks the right model
+- `cpu` and `nvidia` tags, picked when you install
+- Image rebuilt automatically for each new Laya release
+
+---
+
 ## Requirements
 
 Some templates may require:
