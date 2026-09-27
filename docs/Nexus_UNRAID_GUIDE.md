@@ -80,6 +80,8 @@ This is where your database, config, and conversation history are stored. All da
 | `ROUTER_MODEL` | ✅ Yes | *(empty)* | The model used to classify prompts. A small fast model works well (e.g. `gemma3:4b`, `qwen2.5:3b`). Must be available on your provider. |
 | `ROUTER_URL` | No | *(same as LOCAL_URL)* | Custom URL for the intent router. Leave blank to use your Local Provider. |
 | `ROUTER_KEY` | No | *(empty)* | API key for the router endpoint if different from local/cloud. |
+| `ROUTER_ENGINE` | No | `llm` | Starting routing engine for new users: `llm` (the router model above) or `jev` (TypeSafe Jev, cloud). Each user can switch it in the UI. |
+| `TYPESAFE_API_KEY` | No | *(empty)* | API key for the TypeSafe Jev router. Used when a user picks Jev and has not saved their own key. |
 | `PORT` | No | `3000` | Internal server port. Only change if you need a non-standard internal port. |
 | `CONFIG_DIR` | No | `/app/data` | Where config and database are stored inside the container. Leave as default. |
 | `LOG_LEVEL` | No | `info` | Pino log verbosity: `trace`, `debug`, `info`, `warn`, `error`. |
@@ -163,6 +165,16 @@ The router is the small model that reads each prompt and decides which category 
 - Go to **Models** tab → **Intent Router** section
 - The Router Model is set via the `ROUTER_MODEL` env var at container startup
 - If you want to override it without restarting, you can set it in the UI — but env var takes priority on restart
+
+### 5. (Optional) Use TypeSafe Jev as the router
+
+[TypeSafe Jev](https://docs.typesafe.ai) is a cloud classifier. It picks a category and gives a probability for each one. It does not generate text, so it cannot return broken JSON.
+
+- Go to **Models** tab → **Intent Router** → **Routing Engine** → **TypeSafe Jev**
+- Paste your TypeSafe API key, or set `TYPESAFE_API_KEY` on the container
+- Jev picks the category. The first model in that category answers
+- If Jev is unsure, Nexus uses GENERAL. If the Jev call fails, Nexus uses your router model
+- **Privacy:** prompts are sent to `api.typesafe.ai`. For fully local routing, keep **Router Model (LLM)**
 
 ---
 

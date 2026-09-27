@@ -97,6 +97,16 @@
       <Value/>
       <Mode/>
     </Variable>
+    <Variable>
+      <Name>ROUTER_ENGINE</Name>
+      <Value>llm</Value>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Name>TYPESAFE_API_KEY</Name>
+      <Value/>
+      <Mode/>
+    </Variable>
   </Environment>
   <Labels/>
   <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="The port for the Nexus Orchestrator web interface." Type="Port" Display="always" Required="true" Mask="false"/>
@@ -110,4 +120,6 @@
   <Config Name="Router Model" Target="ROUTER_MODEL" Default="" Mode="" Description="The model used to classify prompt intent and route to the right category (e.g. gemma3:4b, gemini-2.0-flash-lite)." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Router URL" Target="ROUTER_URL" Default="" Mode="" Description="Optional: Custom URL for the intent router. Leave blank to use Local Provider URL." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="Router Key" Target="ROUTER_KEY" Default="" Mode="" Description="Optional: Custom API key for the intent router endpoint." Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="Router Engine" Target="ROUTER_ENGINE" Default="llm|jev" Mode="" Description="Default routing engine for new users. llm = the Router Model above (can be fully local). jev = TypeSafe Jev cloud classifier (sends prompts to api.typesafe.ai; needs TYPESAFE_API_KEY)." Type="Variable" Display="advanced" Required="false" Mask="false">llm</Config>
+  <Config Name="TypeSafe API Key" Target="TYPESAFE_API_KEY" Default="" Mode="" Description="Optional: API key for the TypeSafe Jev router. Only used when the routing engine is set to jev." Type="Variable" Display="advanced" Required="false" Mask="true"/>
 </Container>
