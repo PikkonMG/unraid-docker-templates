@@ -111,6 +111,22 @@ Features:
 
 ---
 
+### Von System One
+
+A fast local decision model that answers typed questions about text in one pass, each with a calibrated probability. It serves the Jev-compatible `/v1/systemone` API for routing, triage, moderation and guardrails.
+
+📄 Documentation:  
+➡️ [Von System One Guide](docs/VON-SYSTEM-ONE.md)
+
+Features:
+
+- Choice, score and yes/no questions in one request
+- `cpu` tag on OpenVINO and `nvidia` tag, picked when you install
+- Image rebuilt automatically for each new Von release
+- Optional API key
+
+---
+
 ## Requirements
 
 Some templates may require:
