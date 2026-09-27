@@ -80,6 +80,7 @@ This is where your database, config, and conversation history are stored. All da
 | `ROUTER_MODEL` | ✅ Yes | *(empty)* | The model used to classify prompts. A small fast model works well (e.g. `gemma3:4b`, `qwen2.5:3b`). Must be available on your provider. |
 | `ROUTER_URL` | No | *(same as LOCAL_URL)* | Custom URL for the intent router. Leave blank to use your Local Provider. |
 | `ROUTER_KEY` | No | *(empty)* | API key for the router endpoint if different from local/cloud. |
+| `CHAT_TIMEOUT_MS` | No | `300000` | How long one chat attempt may wait for a provider, in milliseconds. Raise it if large model swaps time out. |
 | `ROUTER_ENGINE` | No | `llm` | Starting routing engine for new users: `llm` (the router model above) or `jev` (TypeSafe Jev, cloud). Each user can switch it in the UI. |
 | `TYPESAFE_API_KEY` | No | *(empty)* | API key for the TypeSafe Jev router. Used when a user picks Jev and has not saved their own key. |
 | `PORT` | No | `3000` | Internal server port. Only change if you need a non-standard internal port. |
@@ -118,10 +119,10 @@ docker logs -f nexus-orchestrator
 A successful startup looks like:
 
 ```
-{"level":"info","msg":"Nexus Orchestrator listening on port 3000"}
+{"level":"info","service":"nexus-orchestrator","port":3000,"msg":"Nexus Orchestrator active"}
 ```
 
-Open `http://[unraid-ip]:3000` in your browser and log in with your `ADMIN_API_KEY`.
+Open `http://[unraid-ip]:3000` in your browser and log in with username `admin` and your `ADMIN_API_KEY` as the password.
 
 ---
 
@@ -163,8 +164,8 @@ Each category (CODING, REASONING, CREATIVE, etc.) has a model pool. Click a disc
 The router is the small model that reads each prompt and decides which category to route it to. It only needs to return clean JSON — a 1–4B parameter model is ideal.
 
 - Go to **Models** tab → **Intent Router** section
-- The Router Model is set via the `ROUTER_MODEL` env var at container startup
-- If you want to override it without restarting, you can set it in the UI — but env var takes priority on restart
+- `ROUTER_MODEL` only fills in the starting value for a user who has not saved settings yet
+- After you save settings in the UI, the saved value is used. Changing `ROUTER_MODEL` later does not override it
 
 ### 5. (Optional) Use TypeSafe Jev as the router
 
