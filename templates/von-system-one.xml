@@ -16,7 +16,7 @@
   <MyIP />
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/wfzyx/von/issues</Support>
+  <Support>https://forums.unraid.net/topic/200711-support-von-system-one-local-decision-model/</Support>
   <Project>https://github.com/wfzyx/von</Project>
   <Overview>Von System One decision model. A fast local model that answers typed questions about text in one pass: pick a choice, give a score, or say yes or no, each with a calibrated probability. It serves the Jev-compatible /v1/systemone HTTP API for routing, triage, moderation and guardrails.
 
