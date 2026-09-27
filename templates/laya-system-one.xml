@@ -18,7 +18,7 @@
   <Privileged>false</Privileged>
   <Support>https://forums.unraid.net/topic/200710-support-laya-system-one-decision-engine/</Support>
   <Project>https://github.com/NandhaKishorM/laya</Project>
-  <Overview>Laya System 1 decision engine. A fast model that answers typed questions about text in one pass: pick a choice, give a score, or say yes, no or unsure, each with a calibrated probability. It serves the Jev-compatible /v1/systemone HTTP API for routing, triage, moderation and guardrails.
+  <Overview>Laya is a System One decision engine. A fast model that answers typed questions about text in one pass: pick a choice, give a score, or say yes, no or unsure, each with a calibrated probability. It serves the Jev-compatible /v1/systemone HTTP API for routing, triage, moderation and guardrails.
 
 Before first start:
 1. Pick cpu or nvidia when you install. The nvidia choice sets Extra Parameters to --runtime=nvidia for you and needs the Unraid NVIDIA Driver plugin.
