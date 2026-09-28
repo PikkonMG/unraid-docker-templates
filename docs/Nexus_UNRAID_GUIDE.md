@@ -23,7 +23,7 @@ Run Nexus Orchestrator on Unraid using Docker. This guide covers installation, c
 - [Ollama](https://ollama.com) running on your network (local machine, NAS, or another server) with at least one model pulled
 - The Ollama host IP — **do not use `localhost`** inside Docker containers
 
-> **Tested on:** Unraid 6.12+ · Nexus Orchestrator 1.0.9 · Ollama 0.6+
+> **Tested on:** Unraid 6.12+ · Nexus Orchestrator 1.2.1 · Ollama 0.6+
 
 ---
 
@@ -80,6 +80,9 @@ This is where your database, config, and conversation history are stored. All da
 | `ROUTER_MODEL` | ✅ Yes | *(empty)* | The model used to classify prompts. A small fast model works well (e.g. `gemma3:4b`, `qwen2.5:3b`). Must be available on your provider. |
 | `ROUTER_URL` | No | *(same as LOCAL_URL)* | Custom URL for the intent router. Leave blank to use your Local Provider. |
 | `ROUTER_KEY` | No | *(empty)* | API key for the router endpoint if different from local/cloud. |
+| `ROUTER_ENGINE` | No | `llm` | Routing engine that new users start with: `llm` (the router model) or `jev` (TypeSafe Jev, cloud). Each user can change it later in the Models tab. |
+| `TYPESAFE_API_KEY` | No | *(empty)* | TypeSafe API key for Jev. Used for anyone who picks Jev without saving their own key. |
+| `CHAT_TIMEOUT_MS` | No | `300000` | How long one chat attempt waits for a provider, in milliseconds. Raise it if large model swaps time out. |
 | `PORT` | No | `3000` | Internal server port. Only change if you need a non-standard internal port. |
 | `CONFIG_DIR` | No | `/app/data` | Where config and database are stored inside the container. Leave as default. |
 | `LOG_LEVEL` | No | `info` | Pino log verbosity: `trace`, `debug`, `info`, `warn`, `error`. |
@@ -103,6 +106,18 @@ CLOUD_URL=https://api.openai.com/v1
 CLOUD_API_KEY=sk-...
 ```
 
+### Routing with TypeSafe Jev
+
+```
+ADMIN_API_KEY=changeme_use_a_strong_key
+LOCAL_URL=http://192.168.1.50:11434
+ROUTER_MODEL=gemma3:4b
+ROUTER_ENGINE=jev
+TYPESAFE_API_KEY=your-typesafe-key
+```
+
+Keep `ROUTER_MODEL` set. Nexus uses it whenever a Jev call fails.
+
 ---
 
 ## First Run
@@ -116,10 +131,10 @@ docker logs -f nexus-orchestrator
 A successful startup looks like:
 
 ```
-{"level":"info","msg":"Nexus Orchestrator listening on port 3000"}
+{"level":"info","service":"nexus-orchestrator","port":3000,"msg":"Nexus Orchestrator active"}
 ```
 
-Open `http://[unraid-ip]:3000` in your browser and log in with your `ADMIN_API_KEY`.
+Open `http://[unraid-ip]:3000` in your browser and log in with username `admin` and your `ADMIN_API_KEY` as the password.
 
 ---
 
@@ -161,8 +176,24 @@ Each category (CODING, REASONING, CREATIVE, etc.) has a model pool. Click a disc
 The router is the small model that reads each prompt and decides which category to route it to. It only needs to return clean JSON — a 1–4B parameter model is ideal.
 
 - Go to **Models** tab → **Intent Router** section
-- The Router Model is set via the `ROUTER_MODEL` env var at container startup
-- If you want to override it without restarting, you can set it in the UI — but env var takes priority on restart
+- `ROUTER_MODEL` only sets the starting value for users who haven't saved settings yet
+- Once you save in the UI, Nexus uses the saved value, and changing `ROUTER_MODEL` later won't override it
+
+### 5. (Optional) Route with TypeSafe Jev
+
+[TypeSafe Jev](https://docs.typesafe.ai) is a hosted classifier. Instead of asking a chat model to write JSON, Nexus asks Jev one multiple-choice question: which of your categories fits this prompt? Jev answers with its pick and a probability for each category, so Nexus never has to parse model-written JSON.
+
+To turn it on:
+
+1. Open the **Models** tab and go to **Intent Router**.
+2. Under **Routing Engine**, pick **TypeSafe Jev**.
+3. Paste your TypeSafe API key and click **Save Router Configuration**. If you'd rather set it once for everyone, put it in `TYPESAFE_API_KEY` on the container. That key is used for any user who hasn't saved their own.
+
+Jev only chooses the category. The first model in that category's pool writes the answer, and Jev only sees categories that have at least one model (VISION and DOCUMENT only when a file is attached). When Jev's confidence is below 0.5 and GENERAL has a model, Nexus sends the prompt to GENERAL instead. If the call to TypeSafe fails, Nexus falls back to the router model from step 4, so it's worth keeping one set.
+
+To check that it's working, open **Routing Analysis** under a reply. The router shows as `jev-` plus a version number, and the reasoning line lists Jev's top two picks with their percentages. If the reasoning ends with `LLM fallback:`, the Jev call failed and the text after it says why.
+
+Jev runs in the cloud. While it's selected, the first 20,000 characters of each prompt go to `api.typesafe.ai`. If everything has to stay on your network, keep **Router Model (LLM)** with a local model.
 
 ---
 
@@ -174,12 +205,12 @@ Type your message in the chat input and press **Enter** (or **Shift+Enter** for 
 
 ### Attaching files
 
-- **Images** — click the attachment button and select an image. Nexus forces the request to the VISION category and sends the image in the correct format for Ollama vision models.
+- **Images** — click the attachment button and select an image. Nexus forces the request to the VISION category and sends the image in the correct format for Ollama vision models. Images only go to VISION models, so a text model answering later in the same chat never receives them.
 - **Documents** (PDF, text) — attach a document to force the DOCUMENT category.
 
 ### Stop generation
 
-Click the red stop button to abort a response mid-stream. The partial response is kept in chat. Note: Ollama will continue generating in the background briefly — this is a known Docker networking limitation.
+Click the red stop button to end a response mid-stream. Nexus keeps the partial reply in the chat and closes the connection to your provider, which cancels the request there as well. Ollama itself may keep generating in the background after the connection closes. That part is an Ollama issue ([ollama#2876](https://github.com/ollama/ollama/issues/2876)), not something Nexus can change.
 
 ### Conversations
 
@@ -200,7 +231,7 @@ Organize conversations into named project folders:
 
 ### Router Result Caching
 
-By default, every message makes a fresh call to the router model. If you're using a **paid cloud router**, you can enable caching to avoid duplicate API calls:
+By default, every message makes a fresh routing call. If you route with a **paid cloud router** or with Jev, you can turn on caching to avoid paying twice for the same prompt:
 
 1. Go to the **System** tab
 2. Toggle **Router Result Caching** on
@@ -284,7 +315,26 @@ Or if running as a service, add it to the systemd unit.
 
 **Cause:** Ollama is loading the model into VRAM for the first time. This can take 10–60+ seconds for large models.
 
-**Fix:** This is expected. Nexus has a 60-second per-attempt timeout and will retry up to 3 times. Wait for the model to load — subsequent messages will be fast.
+**Fix:** This is expected. Each attempt waits up to 5 minutes (`CHAT_TIMEOUT_MS`, 300000 ms by default). If the provider reports that the model is still loading, Nexus waits and tries again, up to 5 times, pausing a little longer each time (30 seconds, then 60, and so on). Once the model is in memory, later messages are fast. If big model swaps on something like llama-swap take longer than 5 minutes, raise `CHAT_TIMEOUT_MS`.
+
+---
+
+### Jev routing errors
+
+If a router model is set, a failed Jev call falls back to it, and the error only appears at the end of the Routing Analysis reasoning, after `LLM fallback:`. Without a router model, the error shows in the chat as a `[Router Error]` message.
+
+- `Router (Jev) has no TypeSafe API key`: paste a key under **Models** → **Intent Router**, or set `TYPESAFE_API_KEY` on the container.
+- `Router (Jev) Authentication Error (401)`: the key is wrong or expired. Paste it again and save.
+- `Router (Jev) Rate Limited (429)` or `Overloaded (529)`: TypeSafe is busy. Try again in a moment.
+- `Router (Jev) has no categories with models assigned`: add a model to at least one category.
+
+---
+
+### MCP tools stop working after rolling back
+
+**Cause:** Starting with 1.2.1, Nexus stores MCP bearer tokens and headers encrypted. Older versions can't read the encrypted value, so they send it to the MCP server as if it were the token.
+
+**Fix:** After rolling back, open the MCP servers in the **Models** tab, type each token in again, and save.
 
 ---
 
@@ -307,7 +357,9 @@ Host path:       /mnt/user/appdata/nexus-orchestrator
 |---------|-------|-----|
 | Provider shows red / Offline | Wrong `LOCAL_URL` | Use LAN IP, not `localhost` |
 | No models in Discovered Models | Ollama unreachable or not listening on `0.0.0.0` | Check Ollama host binding |
-| Router returns invalid JSON | Router model too small or not JSON-capable | Use a 3B+ model for routing |
+| Router returns invalid JSON | Router model too small or not JSON-capable | Use a 3B+ model for routing, or switch the engine to Jev |
+| `[Router Error]` mentioning Jev | TypeSafe key missing or wrong, or TypeSafe busy | See [Jev routing errors](#jev-routing-errors) |
+| MCP tools fail after a downgrade | Tokens are stored encrypted since 1.2.1 | Re-enter the MCP tokens |
 | First message times out | Model loading into VRAM | Wait for retry — normal on cold start |
 | Settings not saving | `/app/data` not writable | Check volume mapping and permissions |
 | UI shows blank tab after error | React render error | Error boundary caught it — click "Try again" in the tab |
