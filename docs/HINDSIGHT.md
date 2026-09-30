@@ -30,14 +30,14 @@ Ollama server or a hosted API.
    | Field | Value |
    |---|---|
    | Model service | `ollama` |
-   | Model name | `gemma4:12b` |
+   | Model name | the model you pulled |
    | Model endpoint | `http://YOUR_UNRAID_IP:11434/v1` |
    | Model provider key | empty |
 
    The model must support tool calling. Pull it on the Ollama host first:
 
    ```bash
-   ollama pull gemma4:12b
+   ollama pull YOUR_MODEL
    ```
 
    For any other service, use these values:
